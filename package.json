@@ -1,0 +1,52 @@
+{
+  "name": "user-pal",
+  "version": "1.0.0",
+  "description": "hapi pal + user boilerplate",
+  "author": "Matt Boutet <mattboutet@gmail.com>",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mattboutet/user-pal"
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "knex": "knex",
+    "start": "node server",
+    "test": "NODE_ENV=test npm run knex migrate:rollback; lab -a code -L -t 96 -I '__core-js_shared__' -L",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "boom": "7.x.x",
+    "code": "5.x.x",
+    "confidence": "3.x.x",
+    "db-errors": "^0.1.0",
+    "dotenv": "6.x.x",
+    "glue": "5.x.x",
+    "hapi": "17.x.x",
+    "hapi-auth-jwt2": "^8.0.0",
+    "haute-couture": "3.x.x",
+    "hoek": "5.x.x",
+    "joi": "13.x.x",
+    "jsonwebtoken": "^8.2.0",
+    "objection": "1.x.x",
+    "pg": "^7.4.1",
+    "schwifty": "4.0.x",
+    "secure-password": "^3.0.0",
+    "tandy": "1.0.x"
+  },
+  "devDependencies": {
+    "eslint": "5.x.x",
+    "eslint-config-hapi": "12.x.x",
+    "eslint-plugin-hapi": "4.x.x",
+    "hapi-swagger": "9.x.x",
+    "inert": "5.x.x",
+    "lab": "16.x.x",
+    "vision": "5.x.x",
+    "knex": "0.15.x",
+    "sqlite3": "4.x.x"
+  }
+}
