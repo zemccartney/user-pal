@@ -2,6 +2,9 @@
 
 const Dotenv = require('dotenv');
 const Confidence = require('confidence');
+const Hoek = require('hoek');
+
+const internals = {};
 
 // Pull .env into process.env
 if (process.env.NODE_ENV === 'test'){
@@ -10,6 +13,27 @@ if (process.env.NODE_ENV === 'test'){
 else {
     Dotenv.config({ path: `${__dirname}/.env` });
 }
+
+// Ensures hapi is ok with our supplied API_PREFIX
+internals.mainOptions = () => {
+
+    const defaults = {
+        options: {
+            jwtKey: process.env.JWT_SECRET
+        }
+    };
+
+    // regex matches (i.e. plagiarized from) hapi/lib/config (for validating route prefix vals)
+    if (process.env.API_PREFIX && process.env.API_PREFIX.match(/^\/.+/)) {
+        return Hoek.applyToDefaults(defaults, {
+            routes: {
+                prefix: process.env.API_PREFIX
+            }
+        });
+    }
+
+    return defaults;
+};
 
 // Glue manifest as a confidence store
 module.exports = new Confidence.Store({
@@ -28,12 +52,7 @@ module.exports = new Confidence.Store({
         plugins: [
             {
                 plugin: '../lib', // Main plugin
-                options: {
-                    jwtKey: process.env.JWT_SECRET
-                },
-                routes: {
-                    prefix: process.env.API_PREFIX
-                }
+                ...internals.mainOptions()
             },
             {
                 plugin: './plugins/swagger'
