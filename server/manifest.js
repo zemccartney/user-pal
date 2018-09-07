@@ -2,9 +2,6 @@
 
 const Dotenv = require('dotenv');
 const Confidence = require('confidence');
-const Hoek = require('hoek');
-
-const internals = {};
 
 // Pull .env into process.env
 if (process.env.NODE_ENV === 'test'){
